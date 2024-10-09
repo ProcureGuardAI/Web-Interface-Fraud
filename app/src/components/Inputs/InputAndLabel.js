@@ -1,15 +1,15 @@
 import PropTypes from "prop-types"
 
-function InputAndLabel({labelName, placeHolder, onChangeFunction, inputName}){
+function InputAndLabel({labelName, placeHolder,  inputName}){
     return(
         <div>
-            <label className="block font-bold px-2 text-xl py-2 ">{labelName}</label>
+            <label className="block px-2 text-lg font-bold py-2 ">{labelName}</label>
             <input
             placeholder={placeHolder}
-            onChange ={onChangeFunction()}
             name = {inputName}
-            className="border-2 border-gray-500 w-full rounded px-4 py-1 font-bold"
-            />
+            className="border-2 border-gray-500 w-full rounded outline-none px-4 py-1 focus:border-green-500 hover:border-green-500
+            placeholder:focus:text-green-500"
+            />           
         </div>
     )
 }
@@ -17,7 +17,6 @@ function InputAndLabel({labelName, placeHolder, onChangeFunction, inputName}){
 InputAndLabel.propTypes = {
     labelName:PropTypes.string.isRequired,
     placeHolder:PropTypes.string.isRequired,
-    onChangeFunction:PropTypes.func.isRequired,
     inputName:PropTypes.string,
 };
 

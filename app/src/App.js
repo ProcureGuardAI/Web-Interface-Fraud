@@ -1,13 +1,10 @@
-import InputAndLabel from "./components/Inputs/InputAndLabel";
+import Login from "./pages/Login";
 
 function App() {
-const handleChange = (e) =>{
-  console.log(e);
-}
 
   return (
-    <div>
-      <InputAndLabel  placeHolder="design" onChangeFunction={handleChange} labelName="testing" />
+    <div className="font-openSans">
+      <Login />
     </div>
   );
 }
