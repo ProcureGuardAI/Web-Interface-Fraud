@@ -1,7 +1,10 @@
 import InputAndLabel from "../components/Inputs/InputAndLabel";
-
+import { useParams } from "react-router";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function OtpConfirmation (){
+    const {userId} = useParams()
+    console.log(userId)
 
     return(
         <div className="flex justify-center items-center bg-gray-50 h-screen">
@@ -9,7 +12,7 @@ function OtpConfirmation (){
             <form className="b-2 w-4/12 bg-white px-8 py-8 shadow-2xl shadow-green-300">
             <div className="flex justify-between py-8">
                 {/* Back button */}
-                <button>icon Back</button>
+                <button><ArrowBackIcon /></button>
             </div>
                 {/* Form tittle */}
                 <div className="border-b-2 pb-4">
