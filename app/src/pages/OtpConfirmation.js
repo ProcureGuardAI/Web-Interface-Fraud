@@ -4,8 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function OtpConfirmation (){
     const {userId} = useParams()
-    console.log(userId)
-
+ 
     return(
         <div className="flex justify-center items-center bg-gray-50 h-screen">
             {/* Form */}
