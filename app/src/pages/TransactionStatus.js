@@ -3,7 +3,7 @@ import warning from "../assets/warning.png"
 import loading from "../assets/loading.png"
 import success from "../assets/success.png"
 function TransactionStatus(){
-    let status = "success"
+    let status = "loading"
     return(
         <div className="flex justify-center items-center h-screen bg-gray-50">
             <div>
