@@ -1,6 +1,7 @@
 import InputAndLabel from "../components/Inputs/InputAndLabel";
 import { useParams } from "react-router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { NavLink } from "react-router-dom";
 
 function OtpConfirmation (){
     const {userId} = useParams()
@@ -11,7 +12,7 @@ function OtpConfirmation (){
             <form className="b-2 w-4/12 bg-white px-8 py-8 shadow-2xl shadow-green-300">
             <div className="flex justify-between py-8">
                 {/* Back button */}
-                <button><ArrowBackIcon /></button>
+                <NavLink to="/signup"><ArrowBackIcon /></NavLink>
             </div>
                 {/* Form tittle */}
                 <div className="border-b-2 pb-4">
