@@ -1,5 +1,7 @@
-// src/AlertsSection.js
+// src/components/dashboard/AlertsSection.js
+
 import React from 'react';
+import { ExclamationIcon, CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/solid';
 
 const AlertsSection = () => {
   const alerts = [
@@ -8,33 +10,42 @@ const AlertsSection = () => {
     { id: 3, message: "Transaction ID 54321 has been resolved", type: "success" },
   ];
 
+  const alertStyles = {
+    warning: {
+      icon: <InformationCircleIcon className="w-6 h-6 text-yellow-500" />,
+      border: 'border-yellow-400',
+      bg: 'bg-yellow-50',
+      text: 'text-yellow-800',
+    },
+    danger: {
+      icon: <ExclamationIcon className="w-6 h-6 text-red-500" />,
+      border: 'border-red-400',
+      bg: 'bg-red-50',
+      text: 'text-red-800',
+    },
+    success: {
+      icon: <CheckCircleIcon className="w-6 h-6 text-green-500" />,
+      border: 'border-green-400',
+      bg: 'bg-green-50',
+      text: 'text-green-800',
+    },
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-lg border border-green-200 p-6">
-      <h2 className="text-xl font-bold mb-4 text-black">Alerts</h2>
+    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+      <h2 className="text-xl font-bold mb-4 text-gray-800">Alerts</h2>
       <div className="flex flex-col space-y-4">
         {alerts.map((alert) => (
           <div
             key={alert.id}
-            className={`flex items-center p-4 rounded-lg shadow-md border ${
-              alert.type === "warning"
-                ? "border-yellow-300 bg-yellow-100"
-                : alert.type === "danger"
-                ? "border-red-300 bg-red-100"
-                : "border-green-300 bg-green-100"
-            }`}
+            className={`flex items-center p-4 rounded-lg shadow-sm border-l-4 ${alertStyles[alert.type].bg} ${alertStyles[alert.type].border}`}
           >
-            <div className="relative mr-4">
-              <svg
-                className="w-6 h-6 text-red-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10 1a1 1 0 00-1 1v7a1 1 0 002 0V2a1 1 0 00-1-1z" />
-                <path d="M10 17a1 1 0 100 2 1 1 0 000-2z" />
-              </svg>
+            <div className="mr-3">
+              {alertStyles[alert.type].icon}
             </div>
-            <p className="text-black">{alert.message}</p>
+            <p className={`text-base font-medium ${alertStyles[alert.type].text}`}>
+              {alert.message}
+            </p>
           </div>
         ))}
       </div>

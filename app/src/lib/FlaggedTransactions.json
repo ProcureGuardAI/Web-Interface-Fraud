@@ -1,0 +1,10 @@
+[
+    { "transactionId": "TRX-001", "vendorName": "GreenTech Solutions", "amountSpent": 50000, "date": "2024-10-01", "riskScore": "High" },
+    { "transactionId": "TRX-002", "vendorName": "BuildRight Construction", "amountSpent": 125000, "date": "2024-10-03", "riskScore": "Medium" },
+    { "transactionId": "TRX-003", "vendorName": "SafeEquip Supplies", "amountSpent": 30000, "date": "2024-10-07", "riskScore": "Low" },
+    { "transactionId": "TRX-004", "vendorName": "ClearView Consultants", "amountSpent": 75000, "date": "2024-10-10", "riskScore": "High" },
+    { "transactionId": "TRX-005", "vendorName": "Alpha Tech Solutions", "amountSpent": 55000, "date": "2024-10-12", "riskScore": "Medium" },
+    { "transactionId": "TRX-006", "vendorName": "OmegaTech", "amountSpent": 85000, "date": "2024-10-13", "riskScore": "High" },
+    { "transactionId": "TRX-007", "vendorName": "SafeBuild", "amountSpent": 90000, "date": "2024-10-14", "riskScore": "Medium" }
+  ]
+  
