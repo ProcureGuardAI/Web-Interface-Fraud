@@ -1,6 +1,9 @@
+// src/components/dashboard/table/TableWithPagination.js
+
 import React, { useState, useEffect } from 'react';
 import Table from './Table';
 import Pagination from './Pagination';
+import loadingImage from '../../../assets/loading.png'; // Importing your custom loading image
 
 const TableWithPagination = ({ endpoint }) => {
   const [data, setData] = useState([]);
@@ -34,7 +37,16 @@ const TableWithPagination = ({ endpoint }) => {
     <div className="w-full flex justify-center">
       <div className="w-[90%] lg:w-[80%] overflow-x-auto">
         {loading ? (
-          <div className="text-center">Loading...</div>
+          <div className="flex justify-center items-center py-10">
+            <img
+              src={loadingImage}
+              alt="Loading"
+              className="h-12 w-12 animate-spin" // Applying a subtle spin animation for better visual effect
+              style={{
+                animation: 'spin 1s linear infinite',
+              }}
+            />
+          </div>
         ) : (
           <>
             <Table data={currentData} />

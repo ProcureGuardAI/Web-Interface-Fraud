@@ -1,3 +1,5 @@
+// src/pages/dashboard/flagged-transactions/FlaggedTransactions.js
+
 import React from 'react';
 import TableWithPagination from '../../../components/dashboard/table/TableWithPagination';
 

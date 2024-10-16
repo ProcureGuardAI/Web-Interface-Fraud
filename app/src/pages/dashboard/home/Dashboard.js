@@ -1,3 +1,5 @@
+// src/pages/dashboard/home/Dashboard.js
+
 import React from 'react';
 import NavigationMenu from '../../../components/dashboard/NavigationMenu';
 import MainScreen from '../../../components/dashboard/MainScreen';

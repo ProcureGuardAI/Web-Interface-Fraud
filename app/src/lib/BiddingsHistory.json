@@ -1,0 +1,6 @@
+[
+    { "projectName": "Library Construction Phase I", "winningBid": 500000, "otherBidders": ["SafeEquip: $550,000", "BuildRight: $530,000"], "dateAwarded": "2024-09-30", "winningVendor": "BuildRight Construction" },
+    { "projectName": "IT System Upgrade", "winningBid": 300000, "otherBidders": ["Alpha Tech: $320,000", "GreenTech: $310,000"], "dateAwarded": "2024-10-05", "winningVendor": "Alpha Tech Solutions" },
+    { "projectName": "Office Renovation", "winningBid": 150000, "otherBidders": ["ClearView: $160,000", "SafeEquip: $155,000"], "dateAwarded": "2024-10-08", "winningVendor": "SafeEquip Supplies" }
+  ]
+  

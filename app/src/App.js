@@ -5,14 +5,14 @@ import {
   Route
 } from 'react-router-dom';
 
-import SignUp from './pages/Signup';
-import Login from './pages/Login';
+import SignUp from './pages/auth/Signup';
 import OtpConfirmation from './pages/OtpConfirmation';
 import Dashboard from './pages/dashboard/home/Dashboard';
 import FlaggedTransactions from './pages/dashboard/flagged-transactions/FlaggedTransactions';
 import VendorsList from './pages/dashboard/vendors/VendorsList';
 import BiddingsHistory from './pages/dashboard/biddings/BiddingsHistory';
 import Settings from './pages/dashboard/settings/Settings';
+import Login from './pages/auth/Login';
 
 const router =createBrowserRouter(
   createRoutesFromElements(
