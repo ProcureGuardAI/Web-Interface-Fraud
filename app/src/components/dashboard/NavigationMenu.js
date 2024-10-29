@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-import { HomeIcon, ExclamationIcon, UsersIcon, BriefcaseIcon, CogIcon } from '@heroicons/react/outline';
+import { HomeIcon, ExclamationIcon, UsersIcon, BriefcaseIcon, CogIcon, LogoutIcon } from '@heroicons/react/outline'; // Importing LogoutIcon
 
 const NavigationMenu = () => {
   const location = useLocation();
@@ -14,10 +14,11 @@ const NavigationMenu = () => {
     { name: 'Vendor List', icon: <UsersIcon className="w-6 h-6" />, href: '/dashboard/vendors' },
     { name: 'Bidding History', icon: <BriefcaseIcon className="w-6 h-6" />, href: '/dashboard/biddings' },
     { name: 'Settings', icon: <CogIcon className="w-6 h-6" />, href: '/dashboard/settings' },
+    { name: 'Logout', icon: <LogoutIcon className="w-6 h-6" />, href: '/login' }, // Adding the Logout item
   ];
 
   return (
-    <div className="w-full sm:w-1/5 bg-white h-auto sm:h-screen p-4 rounded-lg border-r border-gray-200 shadow-lg">
+    <div className="w-100 lg:w-64 bg-white h-auto lg:h-screen lg:fixed p-4 border-r border-gray-200 shadow-lg">
       <ul className="space-y-6">
         {navItems.map((item) => (
           <li

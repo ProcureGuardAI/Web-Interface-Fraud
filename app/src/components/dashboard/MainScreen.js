@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AlertsSection from './AlertsSection';
+import DocumentUpload from './DocumentUpload';
 import { Outlet, useLocation } from 'react-router';
 
 const MainScreen = () => {
@@ -27,6 +28,9 @@ const MainScreen = () => {
                 <h3 className="font-semibold text-gray-700 mb-2">Resolved Cases</h3>
                 <p className="text-2xl font-bold text-blue-600">18</p>
               </div>
+            </div>
+            <div className="mt-6">
+              <DocumentUpload />
             </div>
           </div>
           <div className="w-full sm:w-1/3 mt-4 sm:mt-0">
