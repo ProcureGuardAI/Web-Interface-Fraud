@@ -8,7 +8,7 @@ import loadingImage from '../../../assets/loading.png'; // Importing your custom
 const TableWithPagination = ({ endpoint }) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // items per page
+  const [itemsPerPage] = useState(7); // items per page
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,8 +34,9 @@ const TableWithPagination = ({ endpoint }) => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="w-full flex justify-center">
-      <div className="w-[90%] lg:w-[80%] overflow-x-auto">
+    <div className='flex flex-column justify-center align-center py-10'>
+      <div className="w-full flex justify-center">
+      <div className="w-[100%] lg:w-[90%] overflow-x-auto">
         {loading ? (
           <div className="flex justify-center items-center py-10">
             <img
@@ -59,6 +60,7 @@ const TableWithPagination = ({ endpoint }) => {
           </>
         )}
       </div>
+    </div>
     </div>
   );
 };
