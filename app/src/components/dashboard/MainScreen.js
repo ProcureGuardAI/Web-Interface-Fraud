@@ -5,6 +5,7 @@ import AlertsSection from './AlertsSection';
 import DocumentUpload from './DocumentUpload';
 import { Outlet, useLocation } from 'react-router';
 import StatsCard from './StatsCard';
+import DashboardGraphs from './DashboardGraphs';
 
 const MainScreen = () => {
   const location = useLocation();
@@ -51,6 +52,9 @@ const MainScreen = () => {
             </div>
             <div className="mt-6">
               <DocumentUpload />
+            </div>
+            <div className='mt-6'>
+            <DashboardGraphs />
             </div>
           </div>
           <div className="w-full sm:w-1/3 mt-4 sm:mt-0">
