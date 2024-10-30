@@ -1,14 +1,23 @@
+
+
+import React from 'react';
 import TableWithPagination from "../../../components/dashboard/table/TableWithPagination";
+                           
+const fetchVendorsList = async () => {
+  const response = await fetch('http://localhost:3001/vendors');
+  return await response.json();
+};
 
-
-function VendorsList(){
-    return(
-        <div className="w-full flex justify-center">
-        <div className="w-11/12">
-            <TableWithPagination endpoint="http://localhost:3001/vendorsList" />
-        </div>
-        </div>
-    )
-}
+const VendorsList = () => {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">Vendors List</h1>
+      <TableWithPagination
+        fetchData={fetchVendorsList}
+        headers={['Vendor ID', 'Name', 'Total Contracts', 'Region', 'Average Rating', 'Status']}
+      />
+    </div>
+  );
+};
 
 export default VendorsList;

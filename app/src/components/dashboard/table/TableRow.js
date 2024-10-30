@@ -2,12 +2,12 @@
 
 import React from 'react';
 
-const TableRow = ({ rowData }) => {
+const TableRow = ({ rowData, onRowClick }) => {
   return (
-    <tr className="border-b bg-white hover:bg-gray-50 text-gray-800">
-      {Object.values(rowData).map((value, index) => (
-        <td key={index} className="py-3 px-6 whitespace-nowrap">
-          {value}
+    <tr className="hover:bg-gray-50 cursor-pointer" onClick={() => onRowClick(rowData.id)}>
+      {Object.values(rowData).map((cell, index) => (
+        <td key={index} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+          {cell}
         </td>
       ))}
     </tr>
@@ -15,3 +15,4 @@ const TableRow = ({ rowData }) => {
 };
 
 export default TableRow;
+
