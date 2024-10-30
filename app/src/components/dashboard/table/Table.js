@@ -1,27 +1,21 @@
 // src/components/dashboard/table/Table.js
 
 import React from 'react';
-import TableRow from './TableRow';
 
-const Table = ({ data }) => {
+const Table = ({ headers, children }) => {
   return (
-    <div className="overflow-hidden rounded-lg shadow-lg bg-white border border-gray-200">
-      <table className="min-w-full table-auto text-sm text-left text-gray-800">
-        <thead className="bg-gray-100 text-xs uppercase text-gray-600">
+    <div className="overflow-x-auto w-full bg-white rounded-lg shadow-md border border-gray-200">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
           <tr>
-            {data.length > 0 &&
-              Object.keys(data[0]).map((header) => (
-                <th key={header} className="py-3 px-6 whitespace-nowrap">
-                  {header.replace(/([A-Z])/g, ' $1').toUpperCase()}
-                </th>
-              ))}
+            {headers.map((header, index) => (
+              <th key={index} className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <TableRow key={index} rowData={item} />
-          ))}
-        </tbody>
+        <tbody className="bg-white divide-y divide-gray-200">{children}</tbody>
       </table>
     </div>
   );

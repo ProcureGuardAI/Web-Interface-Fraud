@@ -1,66 +1,57 @@
 // src/components/dashboard/table/TableWithPagination.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from './Table';
+import TableRow from './TableRow';
 import Pagination from './Pagination';
-import loadingImage from '../../../assets/loading.png'; // Importing your custom loading image
 
-const TableWithPagination = ({ endpoint }) => {
+const TableWithPagination = ({ fetchData, headers }) => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filter, setFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7); // items per page
-  const [loading, setLoading] = useState(true);
+  const itemsPerPage = 10;
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(endpoint);
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, [endpoint]);
+    fetchData().then((fetchedData) => {
+      setData(fetchedData);
+      setFilteredData(fetchedData);
+    });
+  }, [fetchData]);
 
-  // Pagination logic
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
-  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+    const filtered = data.filter((item) =>
+      Object.values(item).some((val) =>
+        val.toString().toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    );
+    setFilteredData(filtered);
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const displayedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <div className='flex flex-column justify-center align-center py-10'>
-      <div className="w-full flex justify-center">
-      <div className="w-[100%] lg:w-[90%] overflow-x-auto">
-        {loading ? (
-          <div className="flex justify-center items-center py-10">
-            <img
-              src={loadingImage}
-              alt="Loading"
-              className="h-12 w-12 animate-spin" // Applying a subtle spin animation for better visual effect
-              style={{
-                animation: 'spin 1s linear infinite',
-              }}
-            />
-          </div>
-        ) : (
-          <>
-            <Table data={currentData} />
-            <Pagination
-              itemsPerPage={itemsPerPage}
-              totalItems={data.length}
-              currentPage={currentPage}
-              onPageChange={handlePageChange}
-            />
-          </>
-        )}
-      </div>
-    </div>
+    <div className="space-y-4">
+      <input
+        type="text"
+        value={filter}
+        onChange={handleFilterChange}
+        placeholder="Filter by any column"
+        className="px-4 py-2 border border-gray-300 rounded w-full mb-4"
+      />
+      <Table headers={headers}>
+        {displayedData.map((item) => (
+          <TableRow key={item.id} rowData={item} onRowClick={() => console.log(item.id)} />
+        ))}
+      </Table>
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
 };
