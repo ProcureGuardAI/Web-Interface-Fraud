@@ -16,13 +16,13 @@ COPY . .
 RUN npm run build
 
 # Production Stage
-FROM nginx:alpine
+FROM nginx:latest
 
 # Copy the build artifacts from the build stage to NGINX web server
 COPY --from=build-stage /app/build/ /usr/share/nginx/html
 
 # Copy the NGINX configuration file
-COPY ../nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 
 # We need to make sure not to run the container as a non root user
@@ -38,7 +38,7 @@ RUN touch /var/run/nginx.pid && \
 USER nginx
 
 # Expose port 80 for the NGINX server
-EXPOSE 80
+EXPOSE 8000
 
 # Command to start NGINX when the container is run
 CMD ["nginx", "-g", "daemon off;"]

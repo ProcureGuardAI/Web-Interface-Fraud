@@ -1,8 +1,7 @@
-// src/pages/auth/Login.js
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InputAndLabel from '../../components/Inputs/InputAndLabel';
+import { apiRequest } from '../../services/api';  // Import the API utility
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -13,15 +12,13 @@ function Login() {
   // Regex for email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
-  // Regex for strong password validation (min 8 characters, at least one uppercase, lowercase, digit, and special character)
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // Regex for strong password validation
+  const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
 
   // Handle form submission
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Clear any previous error
-    setError('');
+    setError('');  // Clear any previous error
 
     // Validate email and password
     if (!emailRegex.test(email)) {
@@ -34,10 +31,25 @@ function Login() {
       return;
     }
 
-    // If validation passes, simulate successful login and redirect to dashboard
-    console.log('Email:', email);
-    console.log('Password:', password);
-    navigate('/dashboard');  // Redirect to dashboard
+    try {
+      // API call to login endpoint
+      const data = { email, password };
+      const response = await apiRequest('/api/login/', 'POST', data);  // Update the endpoint as necessary
+
+      // Assume successful login if response contains a token or user data
+      if (response.token) {
+        // Store token (e.g., in localStorage or context for authentication state)
+        localStorage.setItem('token', response.token);
+
+        // Redirect to dashboard on success
+        navigate('/dashboard');
+      } else {
+        setError('Login failed. Please check your email and password.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('An error occurred while logging in. Please try again.');
+    }
   };
 
   return (
@@ -62,9 +74,10 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <InputAndLabel
-            placeHolder="*******"
+            placeHolder="***"
             labelName="Password"
             inputName="password"
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import InputAndLabel from '../../components/Inputs/InputAndLabel';
+import { apiRequest } from '../../services/api';
 
 function SignUp() {
   return (
