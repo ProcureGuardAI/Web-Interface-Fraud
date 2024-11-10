@@ -1,14 +1,14 @@
 // src/pages/dashboard/settings/Settings.js
 
-import React, { useState } from 'react';
-import InputAndLabel from '../../../components/Inputs/InputAndLabel';
+import React, { useState, useEffect } from 'react';
+import InputAndLabel from '../../../components/dashboard/InputAndLabel';
 
 function Settings() {
   const [profile, setProfile] = useState({
-    fullName: 'John Doe',
-    jobTitle: 'Procurement Officer',
-    department: 'Procurement',
-    email: 'johndoe@example.com',
+    fullName: '',
+    jobTitle: '',
+    department: '',
+    email: '',
   });
 
   const [security, setSecurity] = useState({
@@ -16,7 +16,7 @@ function Settings() {
     newPassword: '',
     confirmPassword: '',
     twoFactorAuth: false,
-    securityQuestion: '',
+    securityQuestion: "What's your pet's name", // Default value
     securityAnswer: '',
   });
 
@@ -25,6 +25,45 @@ function Settings() {
     smsAlerts: false,
     pushNotifications: true,
   });
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem('token');
+      console.log("settings: " + token);
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/users/profile/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const attributes = data.data.attributes;
+          setProfile({
+            fullName: attributes.full_name || '',
+            jobTitle: attributes.role || '',
+            department: attributes.department || '',
+            email: attributes.email || '',
+          });
+          setSecurity(prev => ({
+            ...prev,
+            securityQuestion: attributes.security_question || '',
+            securityAnswer: attributes.security_answer || '',
+            twoFactorAuth: attributes.two_fa || false,
+          }));
+        } else {
+          console.error('Failed to fetch user profile');
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +99,7 @@ function Settings() {
             inputName="fullName"
             value={profile.fullName}
             onChange={handleProfileChange}
+            readOnly // Making this field read-only
           />
           <InputAndLabel
             labelName="Job Title"
@@ -67,6 +107,7 @@ function Settings() {
             inputName="jobTitle"
             value={profile.jobTitle}
             onChange={handleProfileChange}
+            readOnly // Making this field read-only
           />
           <InputAndLabel
             labelName="Department"
@@ -74,6 +115,7 @@ function Settings() {
             inputName="department"
             value={profile.department}
             onChange={handleProfileChange}
+            readOnly // Making this field read-only
           />
           <InputAndLabel
             labelName="Email Address"
@@ -81,6 +123,7 @@ function Settings() {
             inputName="email"
             value={profile.email}
             onChange={handleProfileChange}
+            readOnly // Making this field read-only
           />
         </div>
       </section>
@@ -132,6 +175,7 @@ function Settings() {
             inputName="securityQuestion"
             value={security.securityQuestion}
             onChange={handleSecurityChange}
+            readOnly // Making this field read-only
           />
           <InputAndLabel
             labelName="Security Answer"
