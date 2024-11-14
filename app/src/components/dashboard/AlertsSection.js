@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { ExclamationIcon, CheckCircleIcon, InformationCircleIcon, RefreshIcon } from '@heroicons/react/solid';
 
-const AlertsSection = () => {
+const AlertsSection = ({ newAlert }) => {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -28,6 +28,12 @@ const AlertsSection = () => {
   useEffect(() => {
     fetchAlerts();
   }, []);
+
+  useEffect(() => {
+    if (newAlert) {
+      setAlerts((prevAlerts) => [newAlert, ...prevAlerts]);
+    }
+  }, [newAlert]);
 
   const handleRefresh = () => {
     fetchAlerts();

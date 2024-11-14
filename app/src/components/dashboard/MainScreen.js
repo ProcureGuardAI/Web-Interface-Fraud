@@ -15,6 +15,7 @@ const MainScreen = () => {
     flaggedTransactions: 0,
     resolvedCases: 0,
   });
+  const [newAlert, setNewAlert] = useState(null);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -39,6 +40,10 @@ const MainScreen = () => {
     fetchStats();
   }, []);
 
+  const handleNewAlert = (alert) => {
+    setNewAlert(alert);
+  };
+
   return (
     <>
       {isDashboardRoot ? (
@@ -51,14 +56,14 @@ const MainScreen = () => {
               <StatsCard title="Resolved Cases" value={stats.resolvedCases} color="border-blue-500" />
             </div>
             <div className="mt-6">
-              <DocumentUpload />
+              <DocumentUpload onNewAlert={handleNewAlert} />
             </div>
             <div className='mt-6'>
-            <DashboardGraphs />
+              <DashboardGraphs />
             </div>
           </div>
           <div className="w-full sm:w-1/3 mt-4 sm:mt-0">
-            <AlertsSection />
+            <AlertsSection newAlert={newAlert} />
           </div>
         </div>
       ) : (

@@ -2,13 +2,34 @@
 
 import React, { useState } from 'react';
 import { CloudUploadIcon } from '@heroicons/react/outline';
+import { uploadDocument } from '../../services/documentService';
+import loadingSpinner from '../../assets/loading.png'; // Import the spinner image
 
-const DocumentUpload = () => {
+const DocumentUpload = ({ onNewAlert }) => {
   const [fileName, setFileName] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Manage loading state
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     if (e.target.files.length > 0) {
-      setFileName(e.target.files[0].name);
+      const file = e.target.files[0];
+      setFileName(file.name);
+      setIsLoading(true); // Set loading state to true
+
+      try {
+        const response = await uploadDocument(file);
+        const newAlert = {
+          id: Date.now().toString(), // Generate a unique ID for the alert
+          description: response.second_model_response === 1 ? 'The document is fraudulent.' : 'Document uploaded successfully.',
+          riskScore: response.second_model_response === 1 ? 90 : 50, // Example risk scores
+        };
+        onNewAlert(newAlert);
+        setAlertMessage(newAlert.description);
+      } catch (error) {
+        setAlertMessage(`Error: ${error.message}`);
+      } finally {
+        setIsLoading(false); // Set loading state to false
+      }
     }
   };
 
@@ -29,6 +50,16 @@ const DocumentUpload = () => {
       {fileName && (
         <div className="mt-4 text-green-600 text-sm text-center">
           Selected: <span className="font-medium">{fileName}</span>
+        </div>
+      )}
+      {isLoading && (
+        <div className="flex justify-center mt-4">
+          <img src={loadingSpinner} alt="Loading..." className="w-12 h-12 animate-spin" />
+        </div>
+      )}
+      {alertMessage && (
+        <div className={`mt-4 text-sm text-center ${alertMessage.includes('Error') ? 'text-red-600' : 'text-green-600'}`}>
+          {alertMessage}
         </div>
       )}
     </div>
